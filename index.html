@@ -7,14 +7,90 @@
     <title>Confirm</title>
     <script src="./confirm.js"></script>
     <script src="./main.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+    <link href="./code/ofcode-012917.1-min.css" media="screen" rel="stylesheet" type="text/css">
+    <link href="./code/bitstream_mono.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+
 </head>
-<body>
-    <button onclick="show(0)"> Dialog 0</button>
-    <button onclick="show(1)"> Dialog 1</button>
-    <button onclick="show(2)"> Dialog 2</button>
-    <button onclick="show(3)"> Dialog 3</button>
-    <button onclick="show(4)"> Dialog 4</button>
-    <button onclick="show(5)"> Dialog 5</button>
+<body  id="paste_view" class="paste dark font_dejavu">
+
+    <div class="row" >
+        <div class="show-button" onclick="show(0)"> Dialog 0</div>
+
+        <div id="container"><div class="syntax">
+            <div id="codeview">
+                <div style="overflow-x: auto;">
+                    <div id="lcb"><div class="l0"><pre> </pre></div></div>
+                    <div id="rcb"><pre><span class="nx">config</span> <span class="o">=</span> <span class="p">{</span><span class="p">};</span>
+                </div></div></div></div>
+            </div>
+
+    </div>
+
+    <div class="row" >
+        <div class="show-button" onclick="show(1)"> Dialog 1</div>
+        <div id="container"> <div class="syntax"> <div id="codeview"> <div style="overflow-x: auto;"> <div id="lcb">  <div class="l0"> <pre> </pre> </div> <div class="l1"> <pre> </pre> </div> <div class="l0"> <pre> </pre> </div> <div class="l1"> <pre> </pre> </div>
+                        </div> <div id="rcb" style="width: 100%;">
+                            <pre><span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="n">MBOK</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+    <span class="n">theme</span><span class="p">:</span> <span class="s1">'dark'</span>
+<span class="p">};</span></pre></div> </div> </div></div></div>
+    </div>
+
+
+    <div class="row" >
+        <div class="show-button" onclick="show(2)"> Dialog 2</div>
+        <div id="container">
+        <div class="syntax">
+        <div id="codeview"><div style="overflow-x: auto;"><div id="lcb"><div class="l0"><pre> </pre></div><div class="l1"><pre> </pre></div><div class="l0"><pre> </pre></div><div class="l1"><pre> </pre></div><div class="l0"><pre> </pre></div></div><div id="rcb"><pre><span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">MBOK</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">theme</span><span class="o">:</span> <span class="s1">'dark'</span><span class="p">,</span>
+    <span class="nx">modal</span><span class="o">:</span> <span class="kc">false</span>
+<span class="p">};</span> </div></div></div></div> </div>
+    </div>
+
+
+    <div class="row" >
+        <div class="show-button" onclick="show(3)"> Dialog 3</div>
+
+        <div id="container">
+        
+        
+        <div class="syntax">
+
+        <div id="codeview"><div style="overflow-x: auto;"><div id="lcb"><div class="l0"><pre> </pre></div><div class="l1"><pre> </pre></div><div class="l0"><pre> </pre></div><div class="l1"><pre> </pre></div><div class="l0"><pre> </pre></div><div class="l1"><pre> </pre></div><div class="l0"><pre> </pre></div><div class="l1"><pre> </pre></div><div class="l0"><pre> </pre></div><div class="l1"><pre> </pre></div><div class="l0"><pre> </pre></div><div class="l1"><pre> </pre></div><div class="l0"><pre> </pre></div><div class="l1"><pre> </pre></div><div class="l0"><pre> </pre></div><div class="l1"><pre> </pre></div></div><div id="rcb"><pre><span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">buttons</span><span class="o">:</span> <span class="p">[{</span>
+            <span class="nx">id</span><span class="o">:</span> <span class="s1">'MBCANCEL'</span><span class="p">,</span>
+            <span class="nx">title</span><span class="o">:</span> <span class="s1">'Отмена'</span><span class="p">,</span>
+            <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">'#28a745'</span><span class="p">,</span>
+            <span class="nx">color</span><span class="o">:</span> <span class="s1">'#fff'</span><span class="p">,</span>
+            <span class="nx">order</span><span class="o">:</span> <span class="mi">3</span>
+        <span class="p">},</span> <span class="p">{</span>
+            <span class="nx">id</span><span class="o">:</span> <span class="s1">'MBOK'</span><span class="p">,</span>
+            <span class="nx">title</span><span class="o">:</span> <span class="s1">'ОК'</span><span class="p">,</span>
+            <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">'#6c757d'</span><span class="p">,</span>
+            <span class="nx">color</span><span class="o">:</span> <span class="s1">'#fff'</span><span class="p">,</span>
+            <span class="nx">order</span><span class="o">:</span> <span class="mi">2</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">};</span>
+        </div></div></div></div></div>
+        </div>
+
+
+
+    </div>
+    <div class="row" >
+        <div class="show-button" onclick="show(4)"> Dialog 4</div>
+
+        <div id="container"><div class="syntax">
+        <div id="codeview"><div style="overflow-x: auto;"><div id="lcb"><div class="l0"><pre> </pre></div><div class="l1"><pre> </pre></div><div class="l0"><pre> </pre></div></div><div id="rcb"><pre><span class="nx">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">templateId</span><span class="o">:</span> <span class="s1">'template'</span>
+<span class="p">};</span></div></div></div></div>
+        </div>
+
+    </div>
 
     <div id="template" style="display: none;">
         <p>custom template</p>
