@@ -44,6 +44,12 @@ function show(index) {
     }
 
     showConfirm(message, detailed, config).then((res) => {
-        console.log(`clicked button id = ${res}`);
+        const output = document.querySelector('#console');
+        output.textContent = `confirm result: id = ${res}\n` + output.textContent;
     });
+}
+
+function clearConsole() {
+    const output = document.querySelector('#console');
+    output.textContent = '';
 }

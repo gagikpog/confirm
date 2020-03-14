@@ -13,19 +13,19 @@ function showConfirm(message, description, config) {
         if (!config.buttons) {
             config.buttons = [{
                     id: 'MBCANCEL',
-                    title: 'Отмена',
+                    title: 'Cancel',
                     backgroundColor: '#28a745',
                     color: '#fff',
                     order: 3
                 }, {
                     id: 'MBOK',
-                    title: 'ОК',
+                    title: 'OK',
                     backgroundColor: '#6c757d',
                     color: '#fff',
                     order: 2
                 }, {
                     id: 'MBYES',
-                    title: 'Да',
+                    title: 'Yes',
                     backgroundColor: '#007bff',
                     color: '#fff',
                     order: 1
@@ -74,10 +74,14 @@ function showConfirm(message, description, config) {
             dialog.classList.remove('modal');
         }
 
-        const minWidth = 400;
+        const maxWidth = document.body.clientWidth;
+
+        const minWidth = 350;
         let width = config.buttons.length * 130;
         width = width < minWidth ? minWidth : config.buttons.length * 130;
+        width = width < maxWidth ? width : maxWidth;
         document.querySelector(`${dialogId} .dialog`).style.maxWidth = `${width}px`;
+        document.querySelector(`${dialogId} .dialog`).style.minWidth = `${width}px`;
         document.querySelector(`${dialogId} #messageTitle`).textContent = message;
         document.querySelector(`${dialogId} #messageDescription`).textContent = description;
         
@@ -139,7 +143,7 @@ const sheet = (function() {
     margin: 0;
 }
 .confirm {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -159,7 +163,6 @@ const sheet = (function() {
 }
 .confirm .dialog {
   background-color: white;
-  min-width: 350px;
   min-height: 150px;
   display: flex;
   flex-direction: column;
