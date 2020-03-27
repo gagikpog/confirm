@@ -42,3 +42,12 @@
     top: 5px;
     cursor: pointer;
 }
+
+.custom-form-input {
+    margin-top: 10px;
+}
+.custom-form-body {
+    display: flex;
+    flex-direction: column;
+    margin: 4px 18px;
+}

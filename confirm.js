@@ -41,6 +41,11 @@ function showConfirm(message, description, config) {
             ...config
         };
 
+        const contentForm = document.createElement('form');
+        contentForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+        }, true);
+
         const buttonsContainer = document.querySelector(`${dialogId} .messageBox-buttons`);
         while(buttonsContainer.hasChildNodes()) {
             buttonsContainer.removeChild(buttonsContainer.lastChild);
@@ -55,8 +60,27 @@ function showConfirm(message, description, config) {
             btn.id = button.id;
             btn.onclick = function() {
                 dialog.style.display = 'none';
-                dialog.remove();
-                res(btn.id)
+
+                const formData = new FormData(contentForm);
+                const result = {};
+                for(var pair of formData.entries()) {
+                    if(pair[0]) {
+                        result[pair[0]] = pair[1];
+                    }
+                }
+
+                const wait = res({
+                    button: btn.id,
+                    formData: result
+                });
+
+                if (wait && typeof(wait.then) === 'function') {
+                    wait.then(() => {
+                        dialog.remove();
+                    });
+                } else {
+                    dialog.remove();
+                }
             };
             btn.style.backgroundColor = button.backgroundColor;
             btn.style.color = button.color;
@@ -87,10 +111,15 @@ function showConfirm(message, description, config) {
         
         if (config.templateId) {
             const template = document.querySelector(`#${config.templateId}`);
-            const clone = document.importNode(template, true);
-            clone.style.display = 'block';
-            const contentContainer = document.querySelector(`${dialogId} #messageDefaultContent`);
-            contentContainer.appendChild(clone);
+            if(template) {
+                const clone = document.importNode(template, true);
+                clone.style.display = 'block';
+                const contentContainer = document.querySelector(`${dialogId} #messageDefaultContent`);
+                contentForm.appendChild(clone);
+                contentContainer.appendChild(contentForm);
+            } else {
+                console.error(`A block named '${config.templateId}' does not exist`);
+            }
         }
 
     });

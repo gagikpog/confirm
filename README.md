@@ -2,7 +2,10 @@
 
 #### Link 
 ```html
+    <!-- local -->
     <script src="./confirm.min.js"></script>
+    <!-- CDN -->
+    <script src="https://gagikpog.ru/data/libs/confirm.min.js"></script>
 ```
 
 #### For use
@@ -18,5 +21,7 @@
         console.log(`clicked button id = ${res}`);
     });
 ```
+
 [See more](https://github.com/gagikpog/confirm/blob/master/main.js)
+
 [Demo](https://gagikpog.ru/confirm/)
