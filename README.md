@@ -6,6 +6,7 @@
     <script src="./confirm.min.js"></script>
     <!-- CDN -->
     <script src="https://gagikpog.ru/data/libs/confirm.min.js"></script>
+    <script src="https://gagikpog.ru/confirm/confirm.min.js"></script>
 ```
 
 #### For use
