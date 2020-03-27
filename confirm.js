@@ -62,7 +62,8 @@ function showConfirm(message, description, config) {
                 dialog.style.display = 'none';
 
                 const formData = new FormData(contentForm);
-                const result = {};
+                const result = Object.fromEntries(formData);
+
                 for(var pair of formData.entries()) {
                     if(pair[0]) {
                         result[pair[0]] = pair[1];
