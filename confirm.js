@@ -4,8 +4,13 @@ function showConfirm(message, description, config) {
     const dialogId = `#${id}`;
     createHtml(id);
 
-    return new Promise((res, rej) => {
+    return new Promise((resolve, rej) => {
         const dialog = document.querySelector(dialogId);
+
+        dialog.close = () => {
+            dialog.style.display = 'none';
+            dialog.remove();
+        };
 
         config = config || {};
         const isNeedUseDefaultButtons = config.MBOK || config.MBCANCEL || config.MBYES;
@@ -16,19 +21,22 @@ function showConfirm(message, description, config) {
                     title: 'Cancel',
                     backgroundColor: '#28a745',
                     color: '#fff',
-                    order: 3
+                    order: 3,
+                    validate: false
                 }, {
                     id: 'MBOK',
                     title: 'OK',
                     backgroundColor: '#6c757d',
                     color: '#fff',
-                    order: 2
+                    order: 2,
+                    validate: true
                 }, {
                     id: 'MBYES',
                     title: 'Yes',
                     backgroundColor: '#007bff',
                     color: '#fff',
-                    order: 1
+                    order: 1,
+                    validate: true
                 }
             ];
         }
@@ -36,7 +44,9 @@ function showConfirm(message, description, config) {
             ...{
                 theme: 'white',
                 modal: true,
-                templateId: ''
+                templateId: '',
+                asyncClose: false,
+                validator: null
             },
             ...config
         };
@@ -47,7 +57,7 @@ function showConfirm(message, description, config) {
         }, true);
 
         const buttonsContainer = document.querySelector(`${dialogId} .messageBox-buttons`);
-        while(buttonsContainer.hasChildNodes()) {
+        while (buttonsContainer.hasChildNodes()) {
             buttonsContainer.removeChild(buttonsContainer.lastChild);
         }
         config.buttons.forEach((button) => {
@@ -58,30 +68,52 @@ function showConfirm(message, description, config) {
             btn.classList.add('btn', 'mbButton');
             btn.textContent = button.title;
             btn.id = button.id;
+            btn.validate = button.validate;
+
             btn.onclick = function() {
-                dialog.style.display = 'none';
 
-                const formData = new FormData(contentForm);
-                const result = Object.fromEntries(formData);
-
-                for(var pair of formData.entries()) {
-                    if(pair[0]) {
-                        result[pair[0]] = pair[1];
+                const submit = (validateDone) => {
+                    if (validateDone) {
+                        new Promise((res) => {
+                            const formData = new FormData(contentForm);
+                            const result = Object.fromEntries(formData);
+    
+                            resolve({
+                                button: btn.id,
+                                formData: result,
+                                close: config.asyncClose ? res : () => {}
+                            });
+        
+                            if (!config.asyncClose) {
+                                dialog.close();
+                            }
+                        }).then(() => {
+                            dialog.close();
+                        })
+                    } else {
+                        contentForm.reportValidity();
+                        contentForm.focus();
                     }
                 }
 
-                const wait = res({
-                    button: btn.id,
-                    formData: result
-                });
-
-                if (wait && typeof(wait.then) === 'function') {
-                    wait.then(() => {
-                        dialog.remove();
-                    });
+                if (typeof(config.validator) !== 'function') {
+                    const validateDone = btn.validate ? contentForm.checkValidity() : true;
+                    submit(validateDone);
                 } else {
-                    dialog.remove();
+                    if (btn.validate) {
+                        const validatorResult = config.validator(contentForm, btn);
+                        if (validatorResult && validatorResult.then) {
+                            validatorResult.then((validateDone) => {
+                                submit(validateDone);
+                            });
+                        } else {
+                            submit(validatorResult);
+                        }
+                    } else {
+                        submit(true);
+                    }
                 }
+
             };
             btn.style.backgroundColor = button.backgroundColor;
             btn.style.color = button.color;

@@ -38,7 +38,15 @@ function show(index) {
             break;
         case 4:
             config = {
-                templateId: 'template'
+                templateId: 'template',
+                asyncClose: true,
+                validator: (form, button) => {
+                    return new Promise((res) => {
+                        setTimeout(() => {
+                            res(false);
+                        }, 2000);
+                    });
+                }
             };
             break;
     }
@@ -46,6 +54,7 @@ function show(index) {
     showConfirm(message, detailed, config).then((res) => {
         const output = document.querySelector('#console');
         output.textContent = `confirm result: id = ${res.button}\n` + output.textContent;
+        res.close();
     });
 }
 
