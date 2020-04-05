@@ -49,6 +49,24 @@ function show(index) {
                 }
             };
             break;
+        case 5:
+            config = {
+                templateCallBack: () => {
+                    const content = document.createElement('div');
+                    const label = document.createElement('label');
+                    label.for = 'remember';
+                    label.textContent = 'Remember';
+                    const input = document.createElement('input');
+                    input.name = 'remember';
+                    input.type = 'checkbox';
+
+                    content.appendChild(label);
+                    content.appendChild(input);
+                    return content;
+                },
+                asyncClose: true,
+            };
+            break;
     }
 
     showConfirm(message, detailed, config).then((res) => {

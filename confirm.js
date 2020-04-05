@@ -46,7 +46,8 @@ function showConfirm(message, description, config) {
                 modal: true,
                 templateId: '',
                 asyncClose: false,
-                validator: null
+                validator: null,
+                templateCallBack: null
             },
             ...config
         };
@@ -147,12 +148,20 @@ function showConfirm(message, description, config) {
             if(template) {
                 const clone = document.importNode(template, true);
                 clone.style.display = 'block';
-                const contentContainer = document.querySelector(`${dialogId} #messageDefaultContent`);
                 contentForm.appendChild(clone);
-                contentContainer.appendChild(contentForm);
             } else {
                 console.error(`A block named '${config.templateId}' does not exist`);
             }
+        }
+
+        if (config.templateCallBack && typeof(config.templateCallBack) === 'function') {
+            const content = config.templateCallBack();
+            contentForm.appendChild(content);
+        }
+        
+        if (contentForm.childElementCount > 0) {
+            const contentContainer = document.querySelector(`${dialogId} #messageDefaultContent`);
+            contentContainer.appendChild(contentForm);
         }
 
     });
