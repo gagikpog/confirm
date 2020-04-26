@@ -1,24 +1,26 @@
-function show(index) {
+let activeTab = 0;
+
+function show() {
     const message = 'title';
     const detailed = 'description';
-    let config = {}
-    switch (index) {
-        case 0:
+    let config = {};
+    switch (activeTab) {
+        case '0':
             break;
-        case 1:
+        case '1':
             config = {
                 MBOK: true,
                 theme: 'dark'
             };
             break;
-        case 2:
+        case '2':
             config = {
                 MBOK: true,
                 theme: 'dark',
                 modal: false
             };
             break;
-        case 3:
+        case '3':
             config = {
                 buttons: [{
                         id: 'MBCANCEL',
@@ -36,25 +38,30 @@ function show(index) {
                 ]
             };
             break;
-        case 4:
+        case '4':
             config = {
                 templateId: 'template',
                 asyncClose: true,
                 validator: (form, button) => {
                     return new Promise((res) => {
                         setTimeout(() => {
-                            res(false);
+                            res(true);
                         }, 2000);
                     });
                 }
             };
             break;
-        case 5:
+        case '5':
             config = {
                 templateCallBack: () => {
                     const content = document.createElement('div');
+                    content.style.display = 'flex';
+                    content.style.justifyContent = 'center';
+                    content.style.alignItems = 'center';
+
                     const label = document.createElement('label');
                     label.for = 'remember';
+                    label.style.marginRight = '10px';
                     label.textContent = 'Remember';
                     const input = document.createElement('input');
                     input.name = 'remember';
@@ -64,14 +71,14 @@ function show(index) {
                     content.appendChild(input);
                     return content;
                 },
-                asyncClose: true,
+                asyncClose: true
             };
             break;
     }
 
     showConfirm(message, detailed, config).then((res) => {
         const output = document.querySelector('#console');
-        output.textContent = `confirm result: id = ${res.button}\n` + output.textContent;
+        output.textContent = `confirm result: id = ${res.button}  FormData = ${JSON.stringify(res.formData)}\n` + output.textContent;
         res.close();
     });
 }
@@ -79,4 +86,18 @@ function show(index) {
 function clearConsole() {
     const output = document.querySelector('#console');
     output.textContent = '';
+}
+
+function switchTab(event, tabs) {
+    const id = event.target.dataset && event.target.dataset["id"] || null;
+    if (id === null) {
+        return;
+    }
+    activeTab = id;
+    [...tabs.children].forEach((tab) => {tab.classList.remove('tab-active')});
+    event.target.classList.add('tab-active');
+
+    const frame = document.querySelector('#codeFrame');
+
+    frame.src = `./tabs/${id}.html`;
 }

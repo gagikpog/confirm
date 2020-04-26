@@ -238,6 +238,7 @@ const sheet = (function() {
   display: flex;
   flex-direction: column;
   border-radius: 10px;
+  border: 3px solid #aaa;
 }
 .confirm .description {
   flex: 2;
