@@ -30,7 +30,7 @@ function showConfirm(message, description, config) {
                     color: '#fff',
                     order: 2,
                     validate: true,
-                    key: 'Enter'
+                    keys: ['Enter', 'NumpadEnter']
                 }, {
                     id: 'MBYES',
                     title: 'Yes',
@@ -73,7 +73,7 @@ function showConfirm(message, description, config) {
             btn.validate = button.validate;
 
             dialog.addEventListener('keypress', (key) => {
-                if (key.code === button.key) {
+                if ((button.keys || []).includes(key.code)) {
                     btn.click();
                 }
             });
