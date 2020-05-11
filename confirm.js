@@ -29,7 +29,8 @@ function showConfirm(message, description, config) {
                     backgroundColor: '#6c757d',
                     color: '#fff',
                     order: 2,
-                    validate: true
+                    validate: true,
+                    key: 'Enter'
                 }, {
                     id: 'MBYES',
                     title: 'Yes',
@@ -53,7 +54,7 @@ function showConfirm(message, description, config) {
         };
 
         const contentForm = document.createElement('form');
-        contentForm.addEventListener("submit", function(event) {
+        contentForm.addEventListener("submit", (event) => {
             event.preventDefault();
         }, true);
 
@@ -71,7 +72,13 @@ function showConfirm(message, description, config) {
             btn.id = button.id;
             btn.validate = button.validate;
 
-            btn.onclick = function() {
+            dialog.addEventListener('keypress', (key) => {
+                if (key.code === button.key) {
+                    btn.click();
+                }
+            });
+
+            btn.onclick = () => {
 
                 const submit = (validateDone) => {
                     if (validateDone) {
@@ -201,7 +208,7 @@ function showConfirm(message, description, config) {
     }
 }
 
-const sheet = (function() {
+const sheet = (() => {
     const style = document.createElement("style");
     style.appendChild(document.createTextNode(""));
     document.head.appendChild(style);
