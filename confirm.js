@@ -208,14 +208,8 @@ function showConfirm(message, description, config) {
     }
 }
 
-const sheet = (() => {
-    const style = document.createElement("style");
-    style.appendChild(document.createTextNode(""));
-    document.head.appendChild(style);
-    return style.sheet;
-})();
-
-`
+const style = `
+<style>
 .confirm *{
     padding: 0;
     margin: 0;
@@ -280,8 +274,7 @@ const sheet = (() => {
         background-color: #1e1e1e;
     }
 }
+</style>
+`;
 
-`.split('}').map((str) => str + '}').slice(0,-1).forEach((style, index) => {
-    sheet.insertRule(style, index);
-});
-
+document.head.insertAdjacentHTML('beforeend', style);
