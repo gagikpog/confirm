@@ -270,10 +270,17 @@ const sheet = (() => {
   cursor: pointer;
   border-radius: 5px;
 }
-.confirm.dark > *{
+.confirm.dark > * {
   color: white;
   background-color: #1e1e1e;
 }
+@media (prefers-color-scheme: dark) {
+    .confirm.auto > * {
+        color: white;
+        background-color: #1e1e1e;
+    }
+}
+
 `.split('}').map((str) => str + '}').slice(0,-1).forEach((style, index) => {
     sheet.insertRule(style, index);
 });

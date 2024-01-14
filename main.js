@@ -1,4 +1,4 @@
-let activeTab = 0;
+let activeTab = '0';
 
 function show() {
     const message = 'title';
@@ -16,7 +16,7 @@ function show() {
         case '2':
             config = {
                 MBOK: true,
-                theme: 'dark',
+                theme: 'auto',
                 modal: false
             };
             break;
